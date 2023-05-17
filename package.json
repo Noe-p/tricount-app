@@ -1,0 +1,60 @@
+{
+  "name": "next-template-bob",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc",
+    "lint": "npx eslint src --ext js,jsx,ts,tsx --max-warnings 0",
+    "lint:fix": "npx eslint src --ext js,jsx,ts,tsx --max-warnings 0 --fix",
+    "postinstall": "husky install && rm -rf .git/hooks && ln -s ../.husky .git/hooks",
+    "prepare": "husky install"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.16",
+    "@noe-p/react-buttons-components": "^2.7.9",
+    "@types/react-modal": "^3.13.1",
+    "axios": "^0.21.1",
+    "lottie-react": "^2.4.0",
+    "next": "latest",
+    "next-i18next": "^8.2.0",
+    "next-pwa": "^5.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-modal": "^3.16.1",
+    "sharp": "^0.29.3",
+    "styled-components": "^5.2.3",
+    "swiper": "6.8.4"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^12.12.21",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@types/styled-components": "^5.1.9",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-plugin-deprecate": "^0.7.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "typescript": "^4.0"
+  },
+  "license": "MIT"
+}
