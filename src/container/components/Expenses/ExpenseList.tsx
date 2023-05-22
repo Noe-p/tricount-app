@@ -51,11 +51,11 @@ const Main = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 16px;
-  background-color: #f2f2f2;
+  background-color: ${COLORS.GREY_50};
 `;
 
 const ExpenseCard = styled.div`
-  background-color: #fff;
+  background-color: ${COLORS.WHITE};
   border-radius: 8px;
   padding: 12px;
   display: flex;
@@ -77,21 +77,22 @@ const Right = styled.div`
 
 const EpenseTitle = styled(H3)`
   margin-bottom: 5px;
+  color: ${COLORS.GREY_800};
 `;
 
 const ExpenseAuthor = styled(P2)`
-  color: ${COLORS.DARK_GREY};
+  color: ${COLORS.GREY_300};
 `;
 
 const ExpenseAmount = styled(P1)`
   font-weight: bold;
-  color: ${COLORS.PRIMARY};
+  color: ${COLORS.PRIMARY_500};
 `;
 
 const Tag = styled(P2)`
   padding: 4px 8px;
   border-radius: 8px;
-  border: 1px solid ${COLORS.DARK_GREY};
+  border: 1px solid ${COLORS.GREY_300};
   margin-right: 15px;
-  color: ${COLORS.DARK_GREY};
+  color: ${COLORS.GREY_300};
 `;

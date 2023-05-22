@@ -53,14 +53,14 @@ const Main = styled.div`
   justify-content: space-between;
   height: 70px;
   width: 100%;
-  background-color: ${COLORS.DARK_PRIMARY};
+  background-color: ${COLORS.GREY_800};
 `;
 
 const PlusCircleIconStyled = styled(PlusCircleIcon)`
   width: 90px;
   height: 90px;
   transform: translateY(-28px);
-  color: ${COLORS.PRIMARY};
+  color: ${COLORS.PRIMARY_500};
   cursor: pointer;
 `;
 
@@ -82,7 +82,7 @@ const Right = styled.div`
 
 const Label = styled(P2)`
   text-transform: uppercase;
-  color: ${COLORS.DARK_GREY};
+  color: ${COLORS.GREY_300};
   font-size: 12px;
 `;
 

@@ -19,7 +19,10 @@ export async function remove(authenURL: string): Promise<void> {
   });
 }
 
-export async function post(authenURL: string, body: any): Promise<Response> {
+export async function post(
+  authenURL: string,
+  body: unknown
+): Promise<Response> {
   const res = await fetch(url + authenURL, {
     method: 'POST',
     headers: {
@@ -30,7 +33,7 @@ export async function post(authenURL: string, body: any): Promise<Response> {
   return res;
 }
 
-export async function put(authenURL: string, body: any): Promise<void> {
+export async function put(authenURL: string, body: unknown): Promise<void> {
   await fetch(url + authenURL, {
     method: 'PUT',
     headers: {
