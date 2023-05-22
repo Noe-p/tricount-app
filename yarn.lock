@@ -1080,19 +1080,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bobjs/date@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@bobjs/date/-/date-0.2.0.tgz#0ec018576a8b2fa88da408e28b3ec0ef4f6b5e85"
-  integrity sha512-7N9Oj0R7/W0jPwOt9+cBN0WXjFp0HrJ3B1/qxprI7b7cRdk+FfXDbl21sM6jBTH2MqGvCU138c0q9gh1xxjMpA==
-  dependencies:
-    "@bobjs/utils" "^0.1.0"
-    date-fns "^2.16.1"
-
-"@bobjs/utils@^0.1.0", "@bobjs/utils@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@bobjs/utils/-/utils-0.1.2.tgz#3928f3392d11f5455046928c2fc0a4747e5ac2d2"
-  integrity sha512-X6YPnWu6vNzgOcg8Z+6/VS3x4+8FRar7H5RMtK7lYoW05exqGPZfiQgXJQFcsSpEyvIBJQZMqdMOcrQVvwUOrw==
-
 "@emotion/is-prop-valid@^0.8.8":
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz#db28b1c4368a259b60a97311d6a952d4fd01ac1a"
@@ -2510,11 +2497,6 @@ data-uri-to-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz#594b8973938c5bc2c33046535785341abc4f3636"
   integrity sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==
-
-date-fns@^2.16.1:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
-  integrity sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA==
 
 debug@2, debug@^2.6.9:
   version "2.6.9"

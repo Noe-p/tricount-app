@@ -1,0 +1,10 @@
+import { Category } from './Category';
+import { User } from './User';
+
+export interface Expense {
+  id: string;
+  label: string;
+  amount: number;
+  category?: Category;
+  user: User;
+}

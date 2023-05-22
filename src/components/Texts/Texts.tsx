@@ -105,6 +105,7 @@ const H2Styled = styled.h2`
 const H3Styled = styled.h3`
   line-height: 1;
   margin: 0;
+  font-size: 16px;
   color: ${({ $white }: { $white?: boolean }) =>
     $white ? 'white' : COLORS.BLACK};
 `;

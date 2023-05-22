@@ -6,9 +6,11 @@ export const MEDIA_QUERIES = {
 };
 
 export const COLORS = {
-  GREY: '#CFCCD6',
+  GREY: '#4B4F77',
   BLACK: '#07020D',
   WHITE: '#FFFFFF',
   LIGHT_GREY: '#F5F5F5',
   DARK_GREY: '#A9A9A9',
+  PRIMARY: '#7A68F1',
+  DARK_PRIMARY: '#2d2d2d',
 };

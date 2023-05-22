@@ -1,8 +1,9 @@
-import { useTranslation } from 'next-i18next';
+import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getTotalAmount, getUserAmount } from '../../services/api/apiService';
 import { COLORS } from '../../themes';
-import { Image } from '../Medias';
-import { Link, P2 } from '../Texts';
+import { P1, P2 } from '../Texts';
 
 interface FooterProps {
   className?: string;
@@ -10,114 +11,81 @@ interface FooterProps {
 
 export function Footer(props: FooterProps): JSX.Element {
   const { className } = props;
-  const { t } = useTranslation();
+  const [total, setTotal] = useState<number>(0);
+  const [userAmount, setUserAmount] = useState<number>(0);
+
+  async function fetchTotals() {
+    const total = await getTotalAmount();
+    setTotal(total);
+  }
+
+  async function fetchUserAmount() {
+    const userAmount = await getUserAmount(
+      'e4330cd9-119c-4770-b8ff-861ed001ea4d'
+    );
+    setUserAmount(userAmount);
+  }
+
+  useEffect(() => {
+    fetchTotals();
+    fetchUserAmount();
+  }, []);
 
   return (
     <Main className={className}>
-      <InfosContainer>
-        <LinkStyled href='mailto:noephilippe29@gmail.com' target='_blank'>
-          {t('noephilippe29@gmail.com')}
-        </LinkStyled>
-        <LinkStyled href='tel:0781533181' target='_blank'>
-          {t('07 81 53 31 81')}
-        </LinkStyled>
-        <LinkStyled
-          href='https://maps.google.com/maps?q=172+avenue+winston+churchill+rennes'
-          target='_blank'
-        >
-          {t('16 avenue des Lilas - 35000 Rennes')}
-        </LinkStyled>
-      </InfosContainer>
-      <SocialMediasContainer>
-        <a href='#' target='_blank'>
-          <SocialLogo>
-            <Image
-              src='/social-icons/Black/Facebook_black.svg'
-              alt='facebook'
-              width={40}
-              height={40}
-            />
-          </SocialLogo>
-        </a>
-        <a href='#' target='_blank'>
-          <SocialLogo>
-            <Image
-              src='/social-icons/Black/Instagram_black.svg'
-              alt='instagram'
-              width={40}
-              height={40}
-            />
-          </SocialLogo>
-        </a>
-        <a href='#' target='_blank'>
-          <SocialLogo>
-            <Image
-              src='/social-icons/Black/Twitter_black.svg'
-              alt='twitter'
-              width={40}
-              height={40}
-            />
-          </SocialLogo>
-        </a>
-        <a href='#' target='_blank'>
-          <SocialLogo>
-            <Image
-              src='/social-icons/Black/LinkedIN_black.svg'
-              alt='linkedin'
-              width={40}
-              height={40}
-            />
-          </SocialLogo>
-        </a>
-      </SocialMediasContainer>
-      <CopyRight>
-        {t('generics.designed')}
-        <LinkStyled href='https://noe-philippe.com' target='_blank'>
-          {'Noé PHILIPPE'}
-        </LinkStyled>
-      </CopyRight>
-      <CopyRight>{t('generics.copyright')}</CopyRight>
+      <Left>
+        <Label>{'Mon coût total'}</Label>
+        <Amount>{`${userAmount?.toFixed(2)} €`}</Amount>
+      </Left>
+      <PlusCircleIconStyled />
+      <Right>
+        <Label>{'Total Dépenses'}</Label>
+        <Amount>{`${total?.toFixed(2)} €`}</Amount>
+      </Right>
     </Main>
   );
 }
 
 const Main = styled.div`
   display: flex;
-  flex: 1;
+  flex-direction: row;
   align-items: center;
-  background-color: ${COLORS.LIGHT_GREY};
+  justify-content: space-between;
+  height: 70px;
   width: 100%;
-  bottom: 0;
-  flex-direction: column;
+  background-color: ${COLORS.DARK_PRIMARY};
 `;
 
-const SocialMediasContainer = styled.div`
-  display: flex;
-  padding: 10px;
+const PlusCircleIconStyled = styled(PlusCircleIcon)`
+  width: 90px;
+  height: 90px;
+  transform: translateY(-28px);
+  color: ${COLORS.PRIMARY};
+  cursor: pointer;
 `;
 
-const SocialLogo = styled.div`
-  width: 40px;
-  height: 40px;
-  margin: 0 15px;
-`;
-
-const CopyRight = styled(P2)`
-  margin: 10px;
-  color: ${COLORS.DARK_GREY};
-  width: 80%;
-  text-align: center;
-`;
-
-const InfosContainer = styled.div`
+const Left = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 30px;
+  padding: 0 20px;
 `;
 
-const LinkStyled = styled(Link)`
+const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  padding: 0 20px;
+`;
+
+const Label = styled(P2)`
+  text-transform: uppercase;
   color: ${COLORS.DARK_GREY};
+  font-size: 12px;
+`;
+
+const Amount = styled(P1)`
+  color: ${COLORS.WHITE};
 `;
