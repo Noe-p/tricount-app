@@ -31,4 +31,10 @@ export const COLORS = {
   PRIMARY_900: '#30367E',
   BLACK: '#07020D',
   WHITE: '#FFFFFF',
+  RED_200: '#FEE2E2',
+  RED_300: '#FECACA',
+  RED_400: '#FCA5A5',
+  RED_500: '#F87171',
+  RED_600: '#EF4444',
+  RED_700: '#DC2626',
 };

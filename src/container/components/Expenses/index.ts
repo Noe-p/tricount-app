@@ -1,3 +1,4 @@
 export * from './CreateExpense';
-export * from './CreateExpenseHeader';
+export * from './ExpenseHeader';
 export * from './ExpenseList';
+export * from './UpdateExpense';

@@ -6,16 +6,24 @@ import { Expense } from '../../../types';
 interface ExpenseListProps {
   className?: string;
   expenses: Expense[];
+  openModal: () => void;
+  setExpenseId: (id: string) => void;
 }
 
 export function ExpenseList(props: ExpenseListProps): JSX.Element {
-  const { className, expenses } = props;
+  const { className, expenses, openModal, setExpenseId } = props;
 
   return (
     <Main className={className}>
       {expenses.map((expense) => {
         return (
-          <ExpenseCard key={expense.id}>
+          <ExpenseCard
+            key={expense.id}
+            onClick={() => {
+              setExpenseId(expense.id);
+              openModal();
+            }}
+          >
             <Left>
               <EpenseTitle>{expense.label}</EpenseTitle>
               <ExpenseAuthor>
@@ -61,6 +69,7 @@ const ExpenseCard = styled.div`
   height: min-content;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 12px;
+  cursor: pointer;
 `;
 
 const Left = styled.div``;

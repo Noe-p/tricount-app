@@ -1,39 +1,17 @@
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { P1, P2 } from '../../../components/Texts';
-import {
-  getTotalAmount,
-  getUserAmount,
-} from '../../../services/api/apiService';
 import { COLORS } from '../../../themes';
 
 interface FooterProps {
   className?: string;
   openModal: () => void;
+  total?: number;
+  userAmount?: number;
 }
 
 export function Footer(props: FooterProps): JSX.Element {
-  const { className, openModal } = props;
-  const [total, setTotal] = useState<number>(0);
-  const [userAmount, setUserAmount] = useState<number>(0);
-
-  async function fetchTotals() {
-    const total = await getTotalAmount();
-    setTotal(total);
-  }
-
-  async function fetchUserAmount() {
-    const userAmount = await getUserAmount(
-      'e4330cd9-119c-4770-b8ff-861ed001ea4d'
-    );
-    setUserAmount(userAmount);
-  }
-
-  useEffect(() => {
-    fetchTotals();
-    fetchUserAmount();
-  }, []);
+  const { className, openModal, total = 0, userAmount = 0 } = props;
 
   return (
     <Main className={className}>

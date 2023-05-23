@@ -5,18 +5,20 @@ import styled from 'styled-components';
 import { Input, InputCurrency, P1 } from '../../../components';
 import {
   createCategory,
-  createExpense,
   getAllCategories,
   getAllUsers,
   removeCategory,
+  removeExpense,
+  updateExpense,
 } from '../../../services/api/apiService';
 import { COLORS } from '../../../themes';
-import { Category, ExpenseDto, User } from '../../../types';
+import { Category, Expense, ExpenseDto, User } from '../../../types';
 import { ExpenseHeader } from './ExpenseHeader';
 
-interface CreateExpenseProps {
+interface UpdateExpenseProps {
   className?: string;
   closeModal: () => void;
+  expense?: Expense;
 }
 
 interface Option {
@@ -25,21 +27,34 @@ interface Option {
   label: string;
 }
 
-export function CreateExpense(props: CreateExpenseProps): JSX.Element {
-  const { className, closeModal } = props;
-  const [title, setTitle] = useState('');
+export function UpdateExpense(props: UpdateExpenseProps): JSX.Element {
+  const { className, closeModal, expense } = props;
+  const [title, setTitle] = useState(expense?.label ?? '');
   const [allUser, setAllUser] = useState<User[]>([]);
   const [allCategory, setAllCategory] = useState<Category[]>([]);
-  const [authorSelected, setAuthorSelected] = useState<Option | null>(null);
-  const [amount, setAmount] = useState<string>();
-  const [category, setCategory] = useState<string | null>();
+  const [authorSelected, setAuthorSelected] = useState<Option | null>({
+    id: expense?.user.id ?? '',
+    label: `${expense?.user.firstName} ${expense?.user.lastName}`,
+    value: expense?.user.id ?? '',
+  });
+  const [amount, setAmount] = useState<string | undefined>(
+    expense?.amount.toString() ?? ''
+  );
+  const [category, setCategory] = useState<string | undefined | null>(
+    expense?.category?.id ?? undefined
+  );
   const [isValid, setIsValid] = useState(false);
   const [newCategory, setNewCategory] = useState('');
   const [participantsSelected, setParticipantsSelected] = useState<Option[]>(
-    []
+    expense?.participants.map((p) => ({
+      id: p.id,
+      label: `${p.firstName} ${p.lastName}`,
+      value: p.id,
+    })) ?? []
   );
 
   async function onValidate() {
+    if (!expense) return;
     const formatExpense: ExpenseDto = {
       label: title,
       amount: Number(amount) ?? 0,
@@ -48,9 +63,9 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
       date: new Date(),
       participants: participantsSelected.map((p) => p.id),
     };
-    await createExpense(formatExpense);
-    initializeState();
+    await updateExpense(expense.id, formatExpense);
     closeModal();
+    initializeState();
   }
 
   function initializeState() {
@@ -66,13 +81,6 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
   async function fetchUsers() {
     const users = await getAllUsers();
     setAllUser(users);
-    setParticipantsSelected(
-      users.map((user) => ({
-        id: user.id,
-        label: `${user.firstName} ${user.lastName}`,
-        value: user.id,
-      }))
-    );
   }
 
   async function fetchCategories() {
@@ -97,6 +105,13 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
     setNewCategory('');
   }
 
+  async function deleteExpense() {
+    if (!expense) return;
+    await removeExpense(expense.id);
+    closeModal();
+    initializeState();
+  }
+
   useEffect(() => {
     fetchUsers();
     fetchCategories();
@@ -119,7 +134,7 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
   return (
     <Main className={className}>
       <ExpenseHeader
-        title='Créer une dépense'
+        title=''
         closeModal={() => {
           initializeState();
           closeModal();
@@ -169,7 +184,6 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
             onChange={(value) => setParticipantsSelected([...value])}
           />
         </InputPosition>
-
         <TagPosition>
           <Row>
             <Input
@@ -208,6 +222,7 @@ export function CreateExpense(props: CreateExpenseProps): JSX.Element {
           </TagContainer>
         </TagPosition>
       </Form>
+      <RemoveButton onClick={deleteExpense}>{'Supprimer'}</RemoveButton>
     </Main>
   );
 }
@@ -230,13 +245,13 @@ const Form = styled.form`
   width: 95%;
 `;
 
-const InputPosition = styled.div`
-  margin-top: 20px;
-`;
-
 const TagPosition = styled.div`
   margin-top: 40px;
   width: 100%;
+`;
+
+const InputPosition = styled.div`
+  margin-top: 20px;
 `;
 
 const TagContainer = styled.div`
@@ -293,4 +308,18 @@ const XMarkIconStyled = styled(XMarkIcon)<{ $isSelected: boolean }>`
   margin-left: 5px;
   color: ${({ $isSelected }) =>
     $isSelected ? COLORS.PRIMARY_700 : COLORS.GREY_400};
+`;
+
+const RemoveButton = styled(P1)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: ${COLORS.RED_500};
+  border: 1px solid ${COLORS.RED_700};
+  color: ${COLORS.WHITE};
+  cursor: pointer;
+  width: 70%;
+  margin-top: 50px;
 `;

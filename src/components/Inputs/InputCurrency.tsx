@@ -28,4 +28,5 @@ const InputStyled = styled(CurrencyInput)<{ $placeholder: boolean }>`
   font-size: 16px;
   font-weight: 500;
   width: 93%;
+  height: 20px;
 `;

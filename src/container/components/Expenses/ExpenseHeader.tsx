@@ -2,17 +2,16 @@ import styled from 'styled-components';
 import { P1 } from '../../../components';
 import { COLORS } from '../../../themes';
 
-interface CreateExpenseHeaderProps {
+interface ExpenseHeaderProps {
   closeModal: () => void;
   className?: string;
   isValid?: boolean;
   onValidate: () => void;
+  title: string;
 }
 
-export function CreateExpenseHeader(
-  props: CreateExpenseHeaderProps
-): JSX.Element {
-  const { closeModal, className, isValid = false, onValidate } = props;
+export function ExpenseHeader(props: ExpenseHeaderProps): JSX.Element {
+  const { closeModal, className, isValid = false, onValidate, title } = props;
 
   return (
     <Header className={className}>
@@ -20,7 +19,7 @@ export function CreateExpenseHeader(
         <HeaderButton onClick={closeModal} $isActive={true}>
           {'Annuler'}
         </HeaderButton>
-        <HeaderTitle>{'Nouvelle dépense'}</HeaderTitle>
+        <HeaderTitle>{title}</HeaderTitle>
         <HeaderButton
           onClick={() => isValid && onValidate()}
           $isActive={isValid}
