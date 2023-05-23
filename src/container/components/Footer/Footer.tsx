@@ -1,16 +1,20 @@
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getTotalAmount, getUserAmount } from '../../services/api/apiService';
-import { COLORS } from '../../themes';
-import { P1, P2 } from '../Texts';
+import { P1, P2 } from '../../../components/Texts';
+import {
+  getTotalAmount,
+  getUserAmount,
+} from '../../../services/api/apiService';
+import { COLORS } from '../../../themes';
 
 interface FooterProps {
   className?: string;
+  openModal: () => void;
 }
 
 export function Footer(props: FooterProps): JSX.Element {
-  const { className } = props;
+  const { className, openModal } = props;
   const [total, setTotal] = useState<number>(0);
   const [userAmount, setUserAmount] = useState<number>(0);
 
@@ -37,7 +41,7 @@ export function Footer(props: FooterProps): JSX.Element {
         <Label>{'Mon coût total'}</Label>
         <Amount>{`${userAmount?.toFixed(2)} €`}</Amount>
       </Left>
-      <PlusCircleIconStyled />
+      <PlusCircleIconStyled onClick={openModal} />
       <Right>
         <Label>{'Total Dépenses'}</Label>
         <Amount>{`${total?.toFixed(2)} €`}</Amount>

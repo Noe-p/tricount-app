@@ -1,50 +1,39 @@
 import { ReactNode } from 'react';
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
+import { COLORS } from '../../themes';
 
 interface ModalProps extends ReactModal.Props {
   children?: ReactNode;
-  contentClassName?: string;
 }
 
 export function Modal(props: ModalProps): JSX.Element {
-  const { children, contentClassName } = props;
-
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      borderRadius: '8px',
-      padding: '0',
-      boxShadow:
-        '0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 5px 5px rgba(0, 0, 0, 0.2)',
-    },
-  };
+  const { children } = props;
 
   return (
-    <ReactModal
+    <ReactModalStyled
       closeTimeoutMS={200}
       ariaHideApp={false}
-      style={customStyles}
       {...props}
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
     >
-      <ModalContainer className={contentClassName}>{children}</ModalContainer>
-    </ReactModal>
+      {children}
+    </ReactModalStyled>
   );
 }
 
-const ModalContainer = styled.div`
+const ReactModalStyled = styled(ReactModal)`
   display: flex;
-  flex-direction: column;
-  padding: 24px;
-  width: 100%;
+  background-color: ${COLORS.GREY_100};
+  width: 50vw;
+  height: 100vh;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  transform: translateX(50%);
+
+  @media (max-width: 768px) {
+    width: 100vw;
+    transform: translateX(0);
+  }
 `;

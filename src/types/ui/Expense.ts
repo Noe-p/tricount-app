@@ -5,6 +5,8 @@ export interface Expense {
   id: string;
   label: string;
   amount: number;
-  category?: Category;
+  category: Category;
   user: User;
+  date: Date;
+  participants: User[];
 }
