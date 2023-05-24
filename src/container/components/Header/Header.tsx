@@ -1,4 +1,8 @@
-import { ArrowsRightLeftIcon, BanknotesIcon } from '@heroicons/react/24/solid';
+import {
+  ArrowsRightLeftIcon,
+  BanknotesIcon,
+  UserIcon,
+} from '@heroicons/react/24/solid';
 import styled from 'styled-components';
 import { P1 } from '../../../components';
 import { COLORS } from '../../../themes';
@@ -28,6 +32,13 @@ export function Header(props: HeaderProps): JSX.Element {
       >
         <BalanceIcon $selected={navChoice === NavChoice.BALANCE} />
         <Label $selected={navChoice === NavChoice.BALANCE}>{'Équilibre'}</Label>
+      </Nav>
+      <Nav
+        $selected={navChoice === NavChoice.USER}
+        onClick={() => setNavChoice(NavChoice.USER)}
+      >
+        <IconUser $selected={navChoice === NavChoice.USER} />
+        <Label $selected={navChoice === NavChoice.USER}>{'Utilisateur'}</Label>
       </Nav>
     </Main>
   );
@@ -67,7 +78,7 @@ const IconExpense = styled(BanknotesIcon)<{ $selected?: boolean }>`
   opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
   width: 24px;
   height: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 `;
 
 const BalanceIcon = styled(ArrowsRightLeftIcon)<{ $selected?: boolean }>`
@@ -75,5 +86,13 @@ const BalanceIcon = styled(ArrowsRightLeftIcon)<{ $selected?: boolean }>`
   opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
   width: 24px;
   height: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
+`;
+
+const IconUser = styled(UserIcon)<{ $selected?: boolean }>`
+  color: ${COLORS.WHITE};
+  opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
+  width: 24px;
+  height: 24px;
+  margin-bottom: 3px;
 `;

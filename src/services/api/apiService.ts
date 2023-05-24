@@ -43,7 +43,7 @@ export async function getAllUsers(): Promise<User[]> {
   return response?.json();
 }
 
-export async function getOneUser(id: string): Promise<User> {
+export async function getUser(id: string): Promise<User> {
   const response = await get(`users/${id}`);
   const user = await response?.json();
   return { ...user[0], id: id };
@@ -53,19 +53,18 @@ export async function removeUser(id: string): Promise<void> {
   await remove(`users/${id}`);
 }
 
-export async function createUser(user: UserDto): Promise<User[]> {
-  const response = await post('users', user);
-  return response?.json();
+export async function createUser(user: UserDto): Promise<void> {
+  await post('users', user);
 }
 
 export async function updateUser(id: string, user: UserDto): Promise<void> {
-  await put(`categories/${id}`, user);
+  await put(`users/${id}`, user);
 }
 
 //EXPENSES
 
 async function formatExpense(expense: ExpenseApi): Promise<Expense> {
-  const user = await getOneUser(expense.id_user);
+  const user = await getUser(expense.id_user);
   const category = await getOneCategory(expense.id_category);
   return {
     id: expense.id,

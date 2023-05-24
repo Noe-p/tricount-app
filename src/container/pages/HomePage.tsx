@@ -5,12 +5,16 @@ import { Modal } from '../../components';
 import {
   getAllExpenses,
   getTotalAmount,
+  getUser,
   getUserAmount,
 } from '../../services/api/apiService';
+import { getCookie } from '../../services/cookies';
 import { COLORS } from '../../themes';
-import { Expense, ModalChoice, NavChoice } from '../../types';
+import { Expense, ModalChoice, NavChoice, User } from '../../types';
 import {
   BalancePage,
+  ChooseUserModale,
+  ChooseUserPage,
   CreateExpense,
   ExpensePage,
   Footer,
@@ -25,6 +29,7 @@ export function HomePage(): JSX.Element {
   const [total, setTotal] = useState<number>(0);
   const [userAmount, setUserAmount] = useState<number>(0);
   const [navChoice, setNavChoice] = useState<NavChoice>(NavChoice.EXPENSE);
+  const [currentUser, setCurrentUser] = useState<User>();
 
   async function fetchAllExpenses() {
     const expenses = await getAllExpenses();
@@ -37,17 +42,31 @@ export function HomePage(): JSX.Element {
   }
 
   async function fetchUserAmount() {
-    const userAmount = await getUserAmount(
-      'e4330cd9-119c-4770-b8ff-861ed001ea4d'
-    );
+    if (!currentUser) return;
+    const userAmount = await getUserAmount(currentUser.id);
     setUserAmount(userAmount);
   }
+
+  async function fetchCurrentUser(userId: string) {
+    const user = await getUser(userId);
+    setCurrentUser(user);
+  }
+
+  useEffect(() => {
+    const userId = getCookie('userId');
+    if (userId) {
+      setNavChoice(NavChoice.EXPENSE);
+      fetchCurrentUser(userId);
+    } else {
+      setModalChoice(ModalChoice.USER_CHOICE);
+    }
+  }, []);
 
   useEffect(() => {
     fetchAllExpenses();
     fetchTotals();
     fetchUserAmount();
-  }, [modalChoice]);
+  }, [modalChoice, currentUser]);
 
   function renderModal() {
     switch (modalChoice) {
@@ -59,6 +78,13 @@ export function HomePage(): JSX.Element {
         return (
           <UpdateExpense
             expense={allExpenses.find((e) => e.id === expenseId)}
+            closeModal={() => setModalChoice(ModalChoice.NULL)}
+          />
+        );
+      case ModalChoice.USER_CHOICE:
+        return (
+          <ChooseUserModale
+            setCurrentUser={setCurrentUser}
             closeModal={() => setModalChoice(ModalChoice.NULL)}
           />
         );
@@ -77,6 +103,13 @@ export function HomePage(): JSX.Element {
         );
       case NavChoice.BALANCE:
         return <BalancePage />;
+      case NavChoice.USER:
+        return (
+          <ChooseUserPage
+            setUserSelected={setCurrentUser}
+            userSelected={currentUser}
+          />
+        );
     }
   }
 
@@ -91,7 +124,10 @@ export function HomePage(): JSX.Element {
       />
       <Modal
         isOpen={modalChoice !== ModalChoice.NULL}
-        onRequestClose={() => setModalChoice(ModalChoice.NULL)}
+        onRequestClose={() =>
+          modalChoice !== ModalChoice.USER_CHOICE &&
+          setModalChoice(ModalChoice.NULL)
+        }
       >
         {renderModal()}
       </Modal>

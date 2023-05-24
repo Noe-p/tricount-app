@@ -149,4 +149,7 @@ const AmountLabel = styled(P1)<{ $isPositive: boolean }>`
 const EmptyBalance = styled.div`
   width: 100%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
