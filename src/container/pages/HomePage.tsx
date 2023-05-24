@@ -7,19 +7,16 @@ import {
   getTotalAmount,
   getUserAmount,
 } from '../../services/api/apiService';
-import { Expense } from '../../types';
+import { COLORS } from '../../themes';
+import { Expense, ModalChoice, NavChoice } from '../../types';
 import {
+  BalancePage,
   CreateExpense,
-  ExpenseList,
+  ExpensePage,
   Footer,
+  Header,
   UpdateExpense,
 } from '../components';
-
-export enum ModalChoice {
-  CREATE_EXPENSE = 'CREATE_EXPENSE',
-  UPDATE_EXPENSE = 'UPDATE_EXPENSE',
-  NULL = 'NULL',
-}
 
 export function HomePage(): JSX.Element {
   const [expenseId, setExpenseId] = useState<string>();
@@ -27,6 +24,7 @@ export function HomePage(): JSX.Element {
   const [modalChoice, setModalChoice] = useState<ModalChoice>(ModalChoice.NULL);
   const [total, setTotal] = useState<number>(0);
   const [userAmount, setUserAmount] = useState<number>(0);
+  const [navChoice, setNavChoice] = useState<NavChoice>(NavChoice.EXPENSE);
 
   async function fetchAllExpenses() {
     const expenses = await getAllExpenses();
@@ -67,15 +65,25 @@ export function HomePage(): JSX.Element {
     }
   }
 
+  function renderPage() {
+    switch (navChoice) {
+      case NavChoice.EXPENSE:
+        return (
+          <ExpensePage
+            setExpenseId={setExpenseId}
+            expenses={allExpenses}
+            openModal={() => setModalChoice(ModalChoice.UPDATE_EXPENSE)}
+          />
+        );
+      case NavChoice.BALANCE:
+        return <BalancePage />;
+    }
+  }
+
   return (
     <Main>
-      <Page>
-        <ExpenseList
-          setExpenseId={setExpenseId}
-          expenses={allExpenses}
-          openModal={() => setModalChoice(ModalChoice.UPDATE_EXPENSE)}
-        />
-      </Page>
+      <Header navChoice={navChoice} setNavChoice={setNavChoice} />
+      <Page>{renderPage()}</Page>
       <Footer
         total={total}
         userAmount={userAmount}
@@ -110,8 +118,10 @@ const Page = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   height: calc(100% - 70px);
   width: 100%;
   overflow-y: scroll;
+  background-color: ${COLORS.GREY_50};
+  padding-top: 16px;
 `;

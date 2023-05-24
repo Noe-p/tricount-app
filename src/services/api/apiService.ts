@@ -4,6 +4,7 @@ import {
   Expense,
   ExpenseApi,
   ExpenseDto,
+  Test,
   User,
   UserDto,
 } from '../../types';
@@ -79,8 +80,8 @@ async function formatExpense(expense: ExpenseApi): Promise<Expense> {
 
 export async function getAllExpenses(): Promise<Expense[]> {
   const response = await get('expenses');
-  const res: ExpenseApi[] = await response?.json();
-  return Promise.all(res.map((e) => formatExpense(e)));
+  const res: ExpenseApi[] = (await response?.json()) ?? [];
+  return Promise.all(res?.map((e) => formatExpense(e)));
 }
 
 export async function getOneExpense(id: string): Promise<Expense> {
@@ -107,10 +108,15 @@ export async function removeExpense(id: string): Promise<void> {
 export async function getTotalAmount(): Promise<number> {
   const response = await get('totalAmount');
   const res = await response?.json();
-  return res.total;
+  return res?.total;
 }
 
 export async function getUserAmount(id: string): Promise<number> {
-  const response = await get(`totalAmount/${id}`);
+  const response = await get(`totalAmount/users/${id}`);
+  return await response?.json();
+}
+
+export async function getUsersAmount(): Promise<Test[]> {
+  const response = await get('totalAmount/users');
   return await response?.json();
 }

@@ -1,100 +1,79 @@
-import { useTranslation } from 'next-i18next';
-import { useEffect, useState } from 'react';
+import { ArrowsRightLeftIcon, BanknotesIcon } from '@heroicons/react/24/solid';
 import styled from 'styled-components';
-import { H1, Image, P1 } from '../../../components';
+import { P1 } from '../../../components';
+import { COLORS } from '../../../themes';
+import { NavChoice } from '../../../types';
 
 interface HeaderProps {
   className?: string;
+  navChoice: NavChoice;
+  setNavChoice: (navChoice: NavChoice) => void;
 }
 
 export function Header(props: HeaderProps): JSX.Element {
-  const { className } = props;
-  const { t } = useTranslation();
-  const [isAnimated, setIsAnimated] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsAnimated(true);
-    }, 100);
-  }, []);
+  const { className, navChoice, setNavChoice } = props;
 
   return (
     <Main className={className}>
-      <ImageBackground>
-        <Image layout='fill' objectFit='cover' src='/header.jpg' alt='header' />
-      </ImageBackground>
-      <Title $isAnimated={isAnimated} white>
-        {t('home.name')}
-      </Title>
-      <SubTitle $isAnimated={isAnimated} white>
-        {t('home.subTitle')}
-      </SubTitle>
+      <Nav
+        $selected={navChoice === NavChoice.EXPENSE}
+        onClick={() => setNavChoice(NavChoice.EXPENSE)}
+      >
+        <IconExpense $selected={navChoice === NavChoice.EXPENSE} />
+        <Label $selected={navChoice === NavChoice.EXPENSE}>{'Dépenses'}</Label>
+      </Nav>
+      <Nav
+        $selected={navChoice === NavChoice.BALANCE}
+        onClick={() => setNavChoice(NavChoice.BALANCE)}
+      >
+        <BalanceIcon $selected={navChoice === NavChoice.BALANCE} />
+        <Label $selected={navChoice === NavChoice.BALANCE}>{'Équilibre'}</Label>
+      </Nav>
     </Main>
   );
 }
 
 const Main = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  z-index: 0;
-
-  ::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const ImageBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
+  background-color: ${COLORS.PRIMARY_400};
+  z-index: 1;
+  height: 80px;
+`;
+
+const Nav = styled.div<{ $selected: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
   height: 100%;
-  z-index: -1;
+  cursor: pointer;
+  border-bottom: solid 3px;
+  border-bottom-color: ${({ $selected }) =>
+    $selected ? COLORS.PRIMARY_700 : COLORS.PRIMARY_400};
 `;
-
-const Title = styled(H1)<{ $isAnimated: boolean }>`
-  font-size: 4rem;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
+const Label = styled(P1)<{ $selected?: boolean }>`
+  color: ${COLORS.WHITE};
+  opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
+  margin: 0;
   text-transform: uppercase;
-  transform: ${({ $isAnimated }) =>
-    $isAnimated ? 'translateY(0)' : 'translateY(-150px)'};
-  opacity: ${({ $isAnimated }) => ($isAnimated ? 1 : 0)};
-  transition: all 1s ease-in-out;
-  line-height: 1;
-
-  @media (max-width: 768px) {
-    font-size: 3rem;
-  }
 `;
 
-const SubTitle = styled(P1)<{ $isAnimated: boolean }>`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  transform: ${({ $isAnimated }) =>
-    $isAnimated ? 'translateY(0)' : 'translateY(-100px)'};
-  opacity: ${({ $isAnimated }) => ($isAnimated ? 1 : 0)};
-  transition: all 1s ease-in-out;
-  margin-top: 20px;
+const IconExpense = styled(BanknotesIcon)<{ $selected?: boolean }>`
+  color: ${COLORS.WHITE};
+  opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
+  width: 24px;
+  height: 24px;
+  margin-bottom: 10px;
+`;
 
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
+const BalanceIcon = styled(ArrowsRightLeftIcon)<{ $selected?: boolean }>`
+  color: ${COLORS.WHITE};
+  opacity: ${({ $selected }) => ($selected ? 1 : 0.5)};
+  width: 24px;
+  height: 24px;
+  margin-bottom: 10px;
 `;

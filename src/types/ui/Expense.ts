@@ -10,3 +10,8 @@ export interface Expense {
   date: Date;
   participants: User[];
 }
+
+export interface UsersAmount {
+  user: User;
+  balance: number;
+}

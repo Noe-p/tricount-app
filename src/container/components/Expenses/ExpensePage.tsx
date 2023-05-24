@@ -3,14 +3,14 @@ import { H3, P1, P2 } from '../../../components';
 import { COLORS } from '../../../themes';
 import { Expense } from '../../../types';
 
-interface ExpenseListProps {
+interface ExpensePageProps {
   className?: string;
   expenses: Expense[];
   openModal: () => void;
   setExpenseId: (id: string) => void;
 }
 
-export function ExpenseList(props: ExpenseListProps): JSX.Element {
+export function ExpensePage(props: ExpensePageProps): JSX.Element {
   const { className, expenses, openModal, setExpenseId } = props;
 
   return (
@@ -52,20 +52,18 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  padding-top: 16px;
-  background-color: ${COLORS.GREY_50};
 `;
 
 const ExpenseCard = styled.div`
   background-color: ${COLORS.WHITE};
   border-radius: 8px;
+  width: 100%;
   padding: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
   height: min-content;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 12px;

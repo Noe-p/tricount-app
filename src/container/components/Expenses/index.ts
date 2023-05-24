@@ -1,4 +1,5 @@
+export * from './BalancePage';
 export * from './CreateExpense';
 export * from './ExpenseHeader';
-export * from './ExpenseList';
+export * from './ExpensePage';
 export * from './UpdateExpense';
