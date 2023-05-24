@@ -138,30 +138,6 @@ const CheckIconStyled = styled(CheckIcon)`
 
 const UserName = styled(P1)``;
 
-const SubmitButton = styled(P1)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-  color: ${COLORS.WHITE};
-  cursor: pointer;
-  padding: 10px;
-  height: 30px;
-  border: 1px solid ${COLORS.PRIMARY_800};
-  background-color: ${COLORS.PRIMARY_300};
-  border-radius: 5px;
-  width: 70%;
-  text-align: center;
-  text-transform: uppercase;
-  transition: background-color 0.2s ease-in-out;
-  position: absolute;
-  bottom: 100px;
-
-  &:hover {
-    background-color: ${COLORS.PRIMARY_400};
-  }
-`;
-
 const PlusIconStyled = styled(PlusIcon)`
   width: 24px;
   height: 24px;
