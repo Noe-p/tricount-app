@@ -54,6 +54,7 @@ const Main = styled.div`
   justify-content: start;
   width: 90%;
   height: 100%;
+  padding-bottom: 100px;
 `;
 
 const ExpenseCard = styled.div`

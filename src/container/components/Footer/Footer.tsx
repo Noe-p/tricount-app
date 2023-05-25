@@ -1,6 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import styled from 'styled-components';
-import { P1, P2 } from '../../../components/Texts';
+import { P1, P2 } from '../../../components';
 import { COLORS } from '../../../themes';
 
 interface FooterProps {
@@ -44,6 +44,8 @@ const PlusCircleIconStyled = styled(PlusCircleIcon)`
   transform: translateY(-28px);
   color: ${COLORS.PRIMARY_500};
   cursor: pointer;
+  background-color: ${COLORS.GREY_50};
+  border-radius: 50%;
 `;
 
 const Left = styled.div`

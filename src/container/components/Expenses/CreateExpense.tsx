@@ -17,6 +17,7 @@ import { ExpenseHeader } from './ExpenseHeader';
 interface CreateExpenseProps {
   className?: string;
   closeModal: () => void;
+  currentUser: User;
 }
 
 interface Option {
@@ -26,11 +27,15 @@ interface Option {
 }
 
 export function CreateExpense(props: CreateExpenseProps): JSX.Element {
-  const { className, closeModal } = props;
+  const { className, closeModal, currentUser } = props;
   const [title, setTitle] = useState('');
   const [allUser, setAllUser] = useState<User[]>([]);
   const [allCategory, setAllCategory] = useState<Category[]>([]);
-  const [authorSelected, setAuthorSelected] = useState<Option | null>(null);
+  const [authorSelected, setAuthorSelected] = useState<Option | null>({
+    id: currentUser.id,
+    value: `${currentUser.firstName} ${currentUser.lastName}`,
+    label: `${currentUser.firstName} ${currentUser.lastName}`,
+  });
   const [amount, setAmount] = useState<string>();
   const [category, setCategory] = useState<string | null>();
   const [isValid, setIsValid] = useState(false);

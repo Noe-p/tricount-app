@@ -101,6 +101,7 @@ const Main = styled.div`
   height: 100%;
   position: relative;
   overflow: scroll;
+  padding-bottom: 100px;
 `;
 
 const UserList = styled.div`

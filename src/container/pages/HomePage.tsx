@@ -72,7 +72,10 @@ export function HomePage(): JSX.Element {
     switch (modalChoice) {
       case ModalChoice.CREATE_EXPENSE:
         return (
-          <CreateExpense closeModal={() => setModalChoice(ModalChoice.NULL)} />
+          <CreateExpense
+            closeModal={() => setModalChoice(ModalChoice.NULL)}
+            currentUser={currentUser}
+          />
         );
       case ModalChoice.UPDATE_EXPENSE:
         return (
