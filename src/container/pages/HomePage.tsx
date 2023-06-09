@@ -22,6 +22,7 @@ import {
   UpdateExpense,
 } from '../components';
 
+// Ce composant est la page principale de l'application, il permet de gérer l'affichage des différentes pages et modales
 export function HomePage(): JSX.Element {
   const [expenseId, setExpenseId] = useState<string>();
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
@@ -68,6 +69,7 @@ export function HomePage(): JSX.Element {
     fetchUserAmount();
   }, [modalChoice, currentUser]);
 
+  // Cette fonction permet de gérer l'affichage des différetes modales
   function renderModal() {
     switch (modalChoice) {
       case ModalChoice.CREATE_EXPENSE:
@@ -93,7 +95,7 @@ export function HomePage(): JSX.Element {
         );
     }
   }
-
+  // Cette fonction permet de gérer l'affichage des différentes pages (Expense, Balance, User)
   function renderPage() {
     switch (navChoice) {
       case NavChoice.EXPENSE:

@@ -1,46 +1,62 @@
-# TypeScript Next.js example
+# tricount-app
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+J'ai choisis d'utiliser le framework **Next.js** pour ce projet. En effet ce framework est très pratique pour faire du SSR (Server Side Rendering) et du SSG (Static Site Generation). De plus, j'utilise cet outil dans mon alternance. 
 
-## Deploy your own
+Pour le style j'ai utilisé **styled-components**. J'ai choisis cette librairie car elle permet de faire du CSS-in-JS. C'est à dire que le style est directement dans le composant. Cela permet de ne pas avoir de conflit de style.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+Pour la gestion des routes j'ai utilisé **next-routes**. Cela permet de gérer les routes de manière plus simple.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
 
-## How to use it?
+## Installation 
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
+Dans votre terminal taper les commandes : 
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+git clone git@github.com:Noe-p/tricount-app.git
+cd tricount-app 
+yarn 
+yarn dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Architecture 
 
-## Notes
+Dans le répertoire **src** vous y trouverez tous les éléments essentiels de l'application : 
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+  - **components** : 
+      Ce répertoire contient tous les composants "réetulisable" pour un autre projet.
+  
+  - **container** : 
+      Ce répertoire contient tous les composants propore à l'application. 
 
-```
-npm install --save-dev typescript
-```
+  - **i18n** : 
+      Traduction de l'application.
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+  - **pages** : 
+      Point d'entré de l'url des pages.
+  
+  - **routing** : 
+      Les routes de l'application. 
+  
+  - **service** : 
+      Ici, dans **api** vous retrouverez toutes fonction afin de faore les call api. Dans **cookies.ts** les fonctions qui gères les cookies et enfin dans utils des fonctions pratique pour l'application. 
+  
+  - **themes** : 
+      Dans thèmes vous pouvez retrouvez les constantes de couleurs. 
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+  - **types** : 
+      Types correspond à tous les types de l'application : 
+      - **api** : Ce que renvois les call api. 
+      - **dto** : Ce qu'on doit envoyer pour un call api. 
+      - **ui** : Le type pour le front.
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+Dans chaque répertoire vous pourrez retrouver un **index.ts**, afin de faciliter les imports de chaques composants. 
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+## Fonctionnalités 
+Cette application reprend les fonctionnalités de bases de l'application Tricount à savoir : 
+  - Le CRUD d'un utilisateur
+  - La sélection d'un utilisateur
+  - Le CRUD d'une dépense (titre, l'utilisateur qui fait la dépense, le montant, les participants et une catégorie)
+  - La création / suppression d'une catégorie.
+  - D'une page pour voir l'équilibre des dépenses
+  - L'affichage du coût total et du total des dépenses
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
-
-TODO:
-- [ ] Add react-media-hook dependency
-- [ ] Add react-transition-group
-- [ ] Add @types/react-transition-group
+J'ai également rajouté la possibiliter de pour changer d'utilisateur.  

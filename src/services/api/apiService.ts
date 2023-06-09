@@ -4,11 +4,13 @@ import {
   Expense,
   ExpenseApi,
   ExpenseDto,
-  Test,
   User,
   UserDto,
+  UsersAmount,
 } from '../../types';
 import { get, post, put, remove } from './api';
+
+// Ce fichier contient les fonctions qui vont nous permettre de faire des requêtes HTTP vers notre API.
 
 //CATEGORIES
 export async function getAllCategories(): Promise<Category[]> {
@@ -63,6 +65,7 @@ export async function updateUser(id: string, user: UserDto): Promise<void> {
 
 //EXPENSES
 
+// Cette fonction permet de récupérer les données de l'utilisateur et de la catégorie associée à une dépense.
 async function formatExpense(expense: ExpenseApi): Promise<Expense> {
   const user = await getUser(expense.id_user);
   const category = await getOneCategory(expense.id_category);
@@ -80,7 +83,7 @@ async function formatExpense(expense: ExpenseApi): Promise<Expense> {
 export async function getAllExpenses(): Promise<Expense[]> {
   const response = await get('expenses');
   const res: ExpenseApi[] = (await response?.json()) ?? [];
-  return Promise.all(res?.map((e) => formatExpense(e)));
+  return Promise.all(res?.map((e) => formatExpense(e) ?? []));
 }
 
 export async function getOneExpense(id: string): Promise<Expense> {
@@ -115,7 +118,7 @@ export async function getUserAmount(id: string): Promise<number> {
   return await response?.json();
 }
 
-export async function getUsersAmount(): Promise<Test[]> {
+export async function getUsersAmount(): Promise<UsersAmount[]> {
   const response = await get('totalAmount/users');
   return await response?.json();
 }

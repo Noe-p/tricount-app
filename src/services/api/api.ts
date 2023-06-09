@@ -1,6 +1,7 @@
 export const url = 'http://localhost:8000/';
-//export const url = 'https://restauration-api--mds.herokuapp.com/';
 
+
+// Ici nous avons les fonctions de base pour les requêtes HTTP (GET, POST, PUT, DELETE)
 export async function get(authenURL: string): Promise<Response | void> {
   try {
     return await fetch(url + authenURL, {
